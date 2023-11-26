@@ -87,8 +87,8 @@
   content: none;
 }
 
-.facet-filters__field .select__select,
-.mobile-facets__sort .select__select {
+.facet-filters__field .select select,
+.mobile-facets__sort .select select {
   border-radius: 0;
   min-width: auto;
   min-height: auto;
@@ -128,15 +128,15 @@
   transition: none;
 }
 
-.mobile-facets__sort .select__select:focus-visible {
+.mobile-facets__sort .select select:focus-visible {
   outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
   outline-offset: 0.3rem;
   box-shadow: 0 0 0 0.3rem rgb(var(--color-background)),
     0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
 }
 
-.mobile-facets__sort .select__select.focused,
-.no-js .mobile-facets__sort .select__select:focus {
+.mobile-facets__sort .select select.focused,
+.no-js .mobile-facets__sort .select select:focus {
   outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
   outline-offset: 0.3rem;
   box-shadow: 0 0 0 0.3rem rgb(var(--color-background)),
@@ -159,7 +159,7 @@
 }
 
 .no-js .facet-filters__sort:focus:not(:focus-visible),
-.no-js .mobile-facets__sort .select__select:focus:not(:focus-visible) {
+.no-js .mobile-facets__sort .select select:focus:not(:focus-visible) {
   outline: 0;
   box-shadow: none;
 }
@@ -1010,7 +1010,7 @@ input.mobile-facets__checkbox {
   right: 0;
 }
 
-.mobile-facets__sort .select__select {
+.mobile-facets__sort .select select {
   background-color: transparent;
   border-radius: 0;
   box-shadow: none;

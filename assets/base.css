@@ -413,7 +413,7 @@ blockquote {
 .customer select,
 .field__input,
 .form__label,
-.select__select {
+.select select {
   font-size: 1.3rem;
   line-height: calc(1 + 0.5 / var(--font-body-scale));
   letter-spacing: 0.04rem;
@@ -1596,7 +1596,7 @@ details[open] > .share-button__fallback {
 
 /* component-form */
 .field__input,
-.select__select,
+.select select,
 .customer .field input,
 .customer select {
   -webkit-appearance: none;
@@ -1654,7 +1654,7 @@ details[open] > .share-button__fallback {
   z-index: 1;
 }
 
-.select__select {
+.select select {
   font-family: var(--font-body-family);
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
@@ -1664,7 +1664,7 @@ details[open] > .share-button__fallback {
 
 .field:hover.field:after,
 .select:hover.select:after,
-.select__select:hover.select__select:after,
+.select select:hover.select select:after,
 .customer .field:hover.field:after,
 .customer select:hover.select:after,
 .localization-form__select:hover.localization-form__select:after {
@@ -1675,7 +1675,7 @@ details[open] > .share-button__fallback {
 }
 
 .field__input:focus-visible,
-.select__select:focus-visible,
+.select select:focus-visible,
 .customer .field input:focus-visible,
 .customer select:focus-visible,
 .localization-form__select:focus-visible.localization-form__select:after {
@@ -1686,7 +1686,7 @@ details[open] > .share-button__fallback {
 }
 
 .field__input:focus,
-.select__select:focus,
+.select select:focus,
 .customer .field input:focus,
 .customer select:focus,
 .localization-form__select:focus.localization-form__select:after {
@@ -1719,7 +1719,7 @@ details[open] > .share-button__fallback {
   right: calc(var(--inputs-border-width) + 1.5rem);
 }
 
-.select__select,
+.select select,
 .customer select {
   cursor: pointer;
   line-height: calc(1 + 0.6 / var(--font-body-scale));
@@ -3165,7 +3165,7 @@ details-disclosure > details {
   }
 
   .field__input:focus,
-  .select__select:focus,
+  .select select:focus,
   .customer .field input:focus,
   .customer select:focus,
   .localization-form__select:focus.localization-form__select:after {
