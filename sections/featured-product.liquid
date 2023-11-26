@@ -20,9 +20,9 @@
   }
 {%- endstyle -%}
 
-<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-info.js' | asset_url }}" defer></script>
+<script src="{{ 'show-more.js' | asset_url }}" defer></script>
+<script src="{{ 'price-per-item.js' | asset_url }}" defer></script>
 
 {%- liquid
   assign product = section.settings.product
@@ -591,12 +591,12 @@
   </div>
 </section>
 
-<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer></script>
 {%- if section.settings.image_zoom == 'hover' -%}
-  <script id="EnableZoomOnHover-featured" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
+  <script id="EnableZoomOnHover-featured" src="{{ 'magnify.js' | asset_url }}" defer></script>
 {%- endif %}
 {%- if request.design_mode -%}
-  <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'theme-editor.js' | asset_url }}" defer></script>
 {%- endif -%}
 
 {%- if first_3d_model -%}
@@ -687,8 +687,8 @@
 </script>
 
 {% if product.media.size > 0 %}
-  <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-modal.js' | asset_url }}" defer></script>
+  <script src="{{ 'media-gallery.js' | asset_url }}" defer></script>
 {% endif %}
 
 {% schema %}

@@ -4,3 +4,4 @@ package-lock.json
 package.json
 README.MD
 release-notes.md
+jsconfig.json
