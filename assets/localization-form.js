@@ -5,15 +5,25 @@ if (!customElements.get('localization-form')) {
       constructor() {
         super();
         this.elements = {
-          input: this.querySelector('input[name="locale_code"], input[name="country_code"]'),
+          input: this.querySelector(
+            'input[name="locale_code"], input[name="country_code"]',
+          ),
           button: this.querySelector('button'),
           panel: this.querySelector('.disclosure__list-wrapper'),
         };
-        this.elements.button.addEventListener('click', this.openSelector.bind(this));
-        this.elements.button.addEventListener('focusout', this.closeSelector.bind(this));
+        this.elements.button.addEventListener(
+          'click',
+          this.openSelector.bind(this),
+        );
+        this.elements.button.addEventListener(
+          'focusout',
+          this.closeSelector.bind(this),
+        );
         this.addEventListener('keyup', this.onContainerKeyUp.bind(this));
 
-        this.querySelectorAll('a').forEach((item) => item.addEventListener('click', this.onItemClick.bind(this)));
+        this.querySelectorAll('a').forEach((item) =>
+          item.addEventListener('click', this.onItemClick.bind(this)),
+        );
       }
 
       hidePanel() {
@@ -24,7 +34,8 @@ if (!customElements.get('localization-form')) {
       onContainerKeyUp(event) {
         if (event.code.toUpperCase() !== 'ESCAPE') return;
 
-        if (this.elements.button.getAttribute('aria-expanded') == 'false') return;
+        if (this.elements.button.getAttribute('aria-expanded') == 'false')
+          return;
         this.hidePanel();
         event.stopPropagation();
         this.elements.button.focus();
@@ -42,17 +53,20 @@ if (!customElements.get('localization-form')) {
         this.elements.panel.toggleAttribute('hidden');
         this.elements.button.setAttribute(
           'aria-expanded',
-          (this.elements.button.getAttribute('aria-expanded') === 'false').toString()
+          (
+            this.elements.button.getAttribute('aria-expanded') === 'false'
+          ).toString(),
         );
       }
 
       closeSelector(event) {
         const isChild =
-          this.elements.panel.contains(event.relatedTarget) || this.elements.button.contains(event.relatedTarget);
+          this.elements.panel.contains(event.relatedTarget) ||
+          this.elements.button.contains(event.relatedTarget);
         if (!event.relatedTarget || !isChild) {
           this.hidePanel();
         }
       }
-    }
+    },
   );
 }

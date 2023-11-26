@@ -9,12 +9,17 @@ class QuickOrderListRemoveButton extends HTMLElement {
   }
 }
 
-customElements.define('quick-order-list-remove-button', QuickOrderListRemoveButton);
+customElements.define(
+  'quick-order-list-remove-button',
+  QuickOrderListRemoveButton,
+);
 
 class QuickOrderListRemoveAllButton extends HTMLElement {
   constructor() {
     super();
-    const allVariants = Array.from(document.querySelectorAll('[data-variant-id]'));
+    const allVariants = Array.from(
+      document.querySelectorAll('[data-variant-id]'),
+    );
     const items = {};
     let hasVariantsInCart = false;
     this.quickOrderList = this.closest('quick-order-list');
@@ -54,11 +59,16 @@ class QuickOrderListRemoveAllButton extends HTMLElement {
     this.quickOrderList
       .querySelector('.quick-order-list-total__confirmation')
       .classList.toggle('hidden', showConfirmation);
-    this.quickOrderList.querySelector('.quick-order-list-total__info').classList.toggle('hidden', showInfo);
+    this.quickOrderList
+      .querySelector('.quick-order-list-total__info')
+      .classList.toggle('hidden', showInfo);
   }
 }
 
-customElements.define('quick-order-list-remove-all-button', QuickOrderListRemoveAllButton);
+customElements.define(
+  'quick-order-list-remove-all-button',
+  QuickOrderListRemoveAllButton,
+);
 
 class QuickOrderList extends HTMLElement {
   constructor() {
@@ -69,7 +79,9 @@ class QuickOrderList extends HTMLElement {
       update: 'UPDATE',
     };
     this.quickOrderListId = 'quick-order-list';
-    this.variantItemStatusElement = document.getElementById('shopping-cart-variant-item-status');
+    this.variantItemStatusElement = document.getElementById(
+      'shopping-cart-variant-item-status',
+    );
     const form = this.querySelector('form');
 
     form.addEventListener('submit', this.onSubmit.bind(this));
@@ -87,13 +99,16 @@ class QuickOrderList extends HTMLElement {
   }
 
   connectedCallback() {
-    this.cartUpdateUnsubscriber = subscribe(PUB_SUB_EVENTS.cartUpdate, (event) => {
-      if (event.source === this.quickOrderListId) {
-        return;
-      }
-      // If its another section that made the update
-      this.onCartUpdate();
-    });
+    this.cartUpdateUnsubscriber = subscribe(
+      PUB_SUB_EVENTS.cartUpdate,
+      (event) => {
+        if (event.source === this.quickOrderListId) {
+          return;
+        }
+        // If its another section that made the update
+        this.onCartUpdate();
+      },
+    );
     this.sectionId = this.dataset.id;
   }
 
@@ -164,13 +179,19 @@ class QuickOrderList extends HTMLElement {
   renderSections(parsedState) {
     this.getSectionsToRender().forEach((section) => {
       const sectionElement = document.getElementById(section.id);
-      if (sectionElement && sectionElement.parentElement && sectionElement.parentElement.classList.contains('drawer')) {
+      if (
+        sectionElement &&
+        sectionElement.parentElement &&
+        sectionElement.parentElement.classList.contains('drawer')
+      ) {
         parsedState.items.length > 0
           ? sectionElement.parentElement.classList.remove('is-empty')
           : sectionElement.parentElement.classList.add('is-empty');
 
         setTimeout(() => {
-          document.querySelector('#CartDrawer-Overlay').addEventListener('click', this.cart.close.bind(this.cart));
+          document
+            .querySelector('#CartDrawer-Overlay')
+            .addEventListener('click', this.cart.close.bind(this.cart));
         });
       }
       const elementToReplace =
@@ -178,13 +199,18 @@ class QuickOrderList extends HTMLElement {
           ? sectionElement.querySelector(section.selector)
           : sectionElement;
       if (elementToReplace) {
-        elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
+        elementToReplace.innerHTML = this.getSectionInnerHTML(
+          parsedState.sections[section.section],
+          section.selector,
+        );
       }
     });
   }
 
   updateMultipleQty(items) {
-    this.querySelector('.variant-remove-total .loading__spinner').classList.remove('hidden');
+    this.querySelector(
+      '.variant-remove-total .loading__spinner',
+    ).classList.remove('hidden');
 
     const body = JSON.stringify({
       updates: items,
@@ -207,7 +233,9 @@ class QuickOrderList extends HTMLElement {
         this.setErrorMessage(window.cartStrings.error);
       })
       .finally(() => {
-        this.querySelector('.variant-remove-total .loading__spinner').classList.add('hidden');
+        this.querySelector(
+          '.variant-remove-total .loading__spinner',
+        ).classList.add('hidden');
       });
   }
 
@@ -251,7 +279,7 @@ class QuickOrderList extends HTMLElement {
 
         if (parsedState.description || parsedState.errors) {
           const variantItem = document.querySelector(
-            `[id^="Variant-${id}"] .variant-item__totals.small-hide .loading__spinner`
+            `[id^="Variant-${id}"] .variant-item__totals.small-hide .loading__spinner`,
           );
           variantItem.classList.add('loading__spinner--error');
           this.resetQuantityInput(id, quantityElement);
@@ -269,7 +297,9 @@ class QuickOrderList extends HTMLElement {
 
         let hasError = false;
 
-        const currentItem = parsedState.items.find((item) => item.variant_id === parseInt(id));
+        const currentItem = parsedState.items.find(
+          (item) => item.variant_id === parseInt(id),
+        );
         const updatedValue = currentItem ? currentItem.quantity : undefined;
         if (updatedValue && updatedValue !== quantity) {
           this.updateError(updatedValue, id);
@@ -280,20 +310,27 @@ class QuickOrderList extends HTMLElement {
         if (variantItem && variantItem.querySelector(`[name="${name}"]`)) {
           variantItem.querySelector(`[name="${name}"]`).focus();
         }
-        publish(PUB_SUB_EVENTS.cartUpdate, { source: this.quickOrderListId, cartData: parsedState });
+        publish(PUB_SUB_EVENTS.cartUpdate, {
+          source: this.quickOrderListId,
+          cartData: parsedState,
+        });
 
         if (hasError) {
           this.updateMessage();
         } else if (action === this.actions.add) {
           this.updateMessage(parseInt(quantity));
         } else if (action === this.actions.update) {
-          this.updateMessage(parseInt(quantity - quantityElement.dataset.cartQuantity));
+          this.updateMessage(
+            parseInt(quantity - quantityElement.dataset.cartQuantity),
+          );
         } else {
           this.updateMessage(-parseInt(quantityElement.dataset.cartQuantity));
         }
       })
       .catch((error) => {
-        this.querySelectorAll('.loading__spinner').forEach((overlay) => overlay.classList.add('hidden'));
+        this.querySelectorAll('.loading__spinner').forEach((overlay) =>
+          overlay.classList.add('hidden'),
+        );
         this.resetQuantityInput(id);
         console.error(error);
         this.setErrorMessage(window.cartStrings.error);
@@ -311,14 +348,18 @@ class QuickOrderList extends HTMLElement {
   setErrorMessage(message = null) {
     this.errorMessageTemplate =
       this.errorMessageTemplate ??
-      document.getElementById(`QuickOrderListErrorTemplate-${this.sectionId}`).cloneNode(true);
+      document
+        .getElementById(`QuickOrderListErrorTemplate-${this.sectionId}`)
+        .cloneNode(true);
     const errorElements = document.querySelectorAll('.quick-order-list-error');
 
     errorElements.forEach((errorElement) => {
       errorElement.innerHTML = '';
       if (!message) return;
       const updatedMessageElement = this.errorMessageTemplate.cloneNode(true);
-      updatedMessageElement.content.querySelector('.quick-order-list-error-message').innerText = message;
+      updatedMessageElement.content.querySelector(
+        '.quick-order-list-error-message',
+      ).innerText = message;
       errorElement.appendChild(updatedMessageElement.content);
     });
   }
@@ -344,7 +385,10 @@ class QuickOrderList extends HTMLElement {
       ? window.quickOrderListStrings.itemAdded
       : window.quickOrderListStrings.itemsAdded;
 
-    messages.forEach((msg) => (msg.innerHTML = textTemplate.replace('[quantity]', absQuantity)));
+    messages.forEach(
+      (msg) =>
+        (msg.innerHTML = textTemplate.replace('[quantity]', absQuantity)),
+    );
 
     if (!isQuantityNegative) {
       icons.forEach((i) => i.classList.remove('hidden'));
@@ -356,23 +400,37 @@ class QuickOrderList extends HTMLElement {
     if (typeof updatedValue === 'undefined') {
       message = window.cartStrings.error;
     } else {
-      message = window.cartStrings.quantityError.replace('[quantity]', updatedValue);
+      message = window.cartStrings.quantityError.replace(
+        '[quantity]',
+        updatedValue,
+      );
     }
     this.updateLiveRegions(id, message);
   }
 
   updateLiveRegions(id, message) {
-    const variantItemErrorDesktop = document.getElementById(`Quick-order-list-item-error-desktop-${id}`);
-    const variantItemErrorMobile = document.getElementById(`Quick-order-list-item-error-mobile-${id}`);
+    const variantItemErrorDesktop = document.getElementById(
+      `Quick-order-list-item-error-desktop-${id}`,
+    );
+    const variantItemErrorMobile = document.getElementById(
+      `Quick-order-list-item-error-mobile-${id}`,
+    );
     if (variantItemErrorDesktop) {
-      variantItemErrorDesktop.querySelector('.variant-item__error-text').innerHTML = message;
+      variantItemErrorDesktop.querySelector(
+        '.variant-item__error-text',
+      ).innerHTML = message;
       variantItemErrorDesktop.closest('tr').classList.remove('hidden');
     }
-    if (variantItemErrorMobile) variantItemErrorMobile.querySelector('.variant-item__error-text').innerHTML = message;
+    if (variantItemErrorMobile)
+      variantItemErrorMobile.querySelector(
+        '.variant-item__error-text',
+      ).innerHTML = message;
 
     this.variantItemStatusElement.setAttribute('aria-hidden', true);
 
-    const cartStatus = document.getElementById('quick-order-list-live-region-text');
+    const cartStatus = document.getElementById(
+      'quick-order-list-live-region-text',
+    );
     cartStatus.setAttribute('aria-hidden', false);
 
     setTimeout(() => {
@@ -381,16 +439,22 @@ class QuickOrderList extends HTMLElement {
   }
 
   getSectionInnerHTML(html, selector) {
-    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector).innerHTML;
+    return new DOMParser()
+      .parseFromString(html, 'text/html')
+      .querySelector(selector).innerHTML;
   }
 
   toggleLoading(id, enable) {
     const quickOrderList = document.getElementById(this.quickOrderListId);
-    const quickOrderListItems = this.querySelectorAll(`#Variant-${id} .loading__spinner`);
+    const quickOrderListItems = this.querySelectorAll(
+      `#Variant-${id} .loading__spinner`,
+    );
 
     if (enable) {
       quickOrderList.classList.add('quick-order-list__container--disabled');
-      [...quickOrderListItems].forEach((overlay) => overlay.classList.remove('hidden'));
+      [...quickOrderListItems].forEach((overlay) =>
+        overlay.classList.remove('hidden'),
+      );
       document.activeElement.blur();
       this.variantItemStatusElement.setAttribute('aria-hidden', false);
     } else {

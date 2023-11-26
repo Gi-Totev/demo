@@ -6,9 +6,12 @@ class CartNotification extends HTMLElement {
     this.header = document.querySelector('sticky-header');
     this.onBodyClick = this.handleBodyClick.bind(this);
 
-    this.notification.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
+    this.notification.addEventListener(
+      'keyup',
+      (evt) => evt.code === 'Escape' && this.close(),
+    );
     this.querySelectorAll('button[type="button"]').forEach((closeButton) =>
-      closeButton.addEventListener('click', this.close.bind(this))
+      closeButton.addEventListener('click', this.close.bind(this)),
     );
   }
 
@@ -21,7 +24,7 @@ class CartNotification extends HTMLElement {
         this.notification.focus();
         trapFocus(this.notification);
       },
-      { once: true }
+      { once: true },
     );
 
     document.body.addEventListener('click', this.onBodyClick);
@@ -39,7 +42,7 @@ class CartNotification extends HTMLElement {
     this.getSectionsToRender().forEach((section) => {
       document.getElementById(section.id).innerHTML = this.getSectionInnerHTML(
         parsedState.sections[section.id],
-        section.selector
+        section.selector,
       );
     });
 
@@ -63,14 +66,18 @@ class CartNotification extends HTMLElement {
   }
 
   getSectionInnerHTML(html, selector = '.shopify-section') {
-    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector).innerHTML;
+    return new DOMParser()
+      .parseFromString(html, 'text/html')
+      .querySelector(selector).innerHTML;
   }
 
   handleBodyClick(evt) {
     const target = evt.target;
     if (target !== this.notification && !target.closest('cart-notification')) {
       const disclosure = target.closest('details-disclosure, header-menu');
-      this.activeElement = disclosure ? disclosure.querySelector('summary') : null;
+      this.activeElement = disclosure
+        ? disclosure.querySelector('summary')
+        : null;
       this.close();
     }
   }

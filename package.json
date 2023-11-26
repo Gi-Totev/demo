@@ -1,0 +1,19 @@
+{
+  "name": "demo",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "prettier:check": "npx prettier --check \"assets/!(*.min)*.{js,css}\"",
+    "prettier:write": "npx prettier --write \"assets/!(*.min)*.{js,css}\""
+  },
+  "lint-staged": {
+    "*.{js,css}": "npm run prettier:write"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.1",
+    "prettier": "2.8.4"
+  }
+}

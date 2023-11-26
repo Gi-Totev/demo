@@ -147,7 +147,8 @@ noscript .localization-selector.link {
   z-index: 2;
   background-color: rgb(var(--color-background));
   border-radius: var(--popup-corner-radius);
-  box-shadow: var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius)
+  box-shadow: var(--popup-shadow-horizontal-offset)
+    var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius)
     rgba(var(--color-shadow), var(--popup-shadow-opacity));
 }
 
@@ -226,7 +227,9 @@ noscript .localization-selector.link {
   justify-content: flex-end;
 }
 
-.desktop-localization-wrapper .localization-selector + .disclosure__list-wrapper {
+.desktop-localization-wrapper
+  .localization-selector
+  + .disclosure__list-wrapper {
   animation: animateMenuOpen var(--duration-default) ease;
 }
 
@@ -238,28 +241,38 @@ noscript .localization-selector.link {
   align-items: center;
 }
 
-.js .header-localization:not(.menu-drawer__localization) .localization-form__select {
+.js
+  .header-localization:not(.menu-drawer__localization)
+  .localization-form__select {
   padding: 0 2.7rem 0 1.2rem;
   width: max-content;
   height: 3.8rem;
 }
 
-.header-localization:not(.menu-drawer__localization) .localization-form:only-child .localization-form__select {
+.header-localization:not(.menu-drawer__localization)
+  .localization-form:only-child
+  .localization-form__select {
   margin: 0;
 }
 
-.header-localization:not(.menu-drawer__localization).localization-form__select > span {
+.header-localization:not(.menu-drawer__localization).localization-form__select
+  > span {
   max-width: 20ch;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.header-localization:not(.menu-drawer__localization) localization-form:only-child .localization-form__select > span {
+.header-localization:not(.menu-drawer__localization)
+  localization-form:only-child
+  .localization-form__select
+  > span {
   max-width: 26ch;
 }
 
-.header-localization:not(.menu-drawer__localization) .localization-form__select .icon-caret {
+.header-localization:not(.menu-drawer__localization)
+  .localization-form__select
+  .icon-caret {
   right: 0.8rem;
 }
 
@@ -291,7 +304,9 @@ noscript .localization-selector.link {
   padding: 0;
 }
 
-.menu-drawer__localization .localization-form:only-child .localization-form__select {
+.menu-drawer__localization
+  .localization-form:only-child
+  .localization-form__select {
   margin: 0;
 }
 

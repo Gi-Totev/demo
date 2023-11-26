@@ -7,7 +7,10 @@ if (!customElements.get('pickup-availability')) {
 
         if (!this.hasAttribute('available')) return;
 
-        this.errorHtml = this.querySelector('template').content.firstElementChild.cloneNode(true);
+        this.errorHtml =
+          this.querySelector('template').content.firstElementChild.cloneNode(
+            true,
+          );
         this.onClickRefreshList = this.onClickRefreshList.bind(this);
         this.fetchAvailability(this.dataset.variantId);
       }
@@ -29,7 +32,8 @@ if (!customElements.get('pickup-availability')) {
           })
           .catch((e) => {
             const button = this.querySelector('button');
-            if (button) button.removeEventListener('click', this.onClickRefreshList);
+            if (button)
+              button.removeEventListener('click', this.onClickRefreshList);
             this.renderError();
           });
       }
@@ -42,7 +46,10 @@ if (!customElements.get('pickup-availability')) {
         this.innerHTML = '';
         this.appendChild(this.errorHtml);
 
-        this.querySelector('button').addEventListener('click', this.onClickRefreshList);
+        this.querySelector('button').addEventListener(
+          'click',
+          this.onClickRefreshList,
+        );
       }
 
       renderPreview(sectionInnerHTML) {
@@ -54,22 +61,31 @@ if (!customElements.get('pickup-availability')) {
           return;
         }
 
-        this.innerHTML = sectionInnerHTML.querySelector('pickup-availability-preview').outerHTML;
+        this.innerHTML = sectionInnerHTML.querySelector(
+          'pickup-availability-preview',
+        ).outerHTML;
         this.setAttribute('available', '');
 
-        document.body.appendChild(sectionInnerHTML.querySelector('pickup-availability-drawer'));
-        const colorClassesToApply = this.dataset.productPageColorScheme.split(' ');
+        document.body.appendChild(
+          sectionInnerHTML.querySelector('pickup-availability-drawer'),
+        );
+        const colorClassesToApply =
+          this.dataset.productPageColorScheme.split(' ');
         colorClassesToApply.forEach((colorClass) => {
-          document.querySelector('pickup-availability-drawer').classList.add(colorClass);
+          document
+            .querySelector('pickup-availability-drawer')
+            .classList.add(colorClass);
         });
 
         const button = this.querySelector('button');
         if (button)
           button.addEventListener('click', (evt) => {
-            document.querySelector('pickup-availability-drawer').show(evt.target);
+            document
+              .querySelector('pickup-availability-drawer')
+              .show(evt.target);
           });
       }
-    }
+    },
   );
 }
 
@@ -116,6 +132,6 @@ if (!customElements.get('pickup-availability-drawer')) {
         document.body.classList.add('overflow-hidden');
         trapFocus(this);
       }
-    }
+    },
   );
 }

@@ -8,7 +8,9 @@ if (!customElements.get('quick-add-modal')) {
       }
 
       hide(preventFocus = false) {
-        const cartNotification = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
+        const cartNotification =
+          document.querySelector('cart-notification') ||
+          document.querySelector('cart-drawer');
         if (cartNotification) cartNotification.setActiveElement(this.openedBy);
         this.modalContent.innerHTML = '';
 
@@ -24,10 +26,18 @@ if (!customElements.get('quick-add-modal')) {
         fetch(opener.getAttribute('data-product-url'))
           .then((response) => response.text())
           .then((responseText) => {
-            const responseHTML = new DOMParser().parseFromString(responseText, 'text/html');
-            this.productElement = responseHTML.querySelector('section[id^="MainProduct-"]');
+            const responseHTML = new DOMParser().parseFromString(
+              responseText,
+              'text/html',
+            );
+            this.productElement = responseHTML.querySelector(
+              'section[id^="MainProduct-"]',
+            );
             this.productElement.classList.forEach((classApplied) => {
-              if (classApplied.startsWith('color-') || classApplied === 'gradient')
+              if (
+                classApplied.startsWith('color-') ||
+                classApplied === 'gradient'
+              )
                 this.modalContent.classList.add(classApplied);
             });
             this.preventDuplicatedIDs();
@@ -61,43 +71,60 @@ if (!customElements.get('quick-add-modal')) {
           Array.from(oldScriptTag.attributes).forEach((attribute) => {
             newScriptTag.setAttribute(attribute.name, attribute.value);
           });
-          newScriptTag.appendChild(document.createTextNode(oldScriptTag.innerHTML));
+          newScriptTag.appendChild(
+            document.createTextNode(oldScriptTag.innerHTML),
+          );
           oldScriptTag.parentNode.replaceChild(newScriptTag, oldScriptTag);
         });
       }
 
       preventVariantURLSwitching() {
-        const variantPicker = this.modalContent.querySelector('variant-radios,variant-selects');
+        const variantPicker = this.modalContent.querySelector(
+          'variant-radios,variant-selects',
+        );
         if (!variantPicker) return;
 
         variantPicker.setAttribute('data-update-url', 'false');
       }
 
       removeDOMElements() {
-        const pickupAvailability = this.productElement.querySelector('pickup-availability');
+        const pickupAvailability = this.productElement.querySelector(
+          'pickup-availability',
+        );
         if (pickupAvailability) pickupAvailability.remove();
 
         const productModal = this.productElement.querySelector('product-modal');
         if (productModal) productModal.remove();
 
-        const modalDialog = this.productElement.querySelectorAll('modal-dialog');
+        const modalDialog =
+          this.productElement.querySelectorAll('modal-dialog');
         if (modalDialog) modalDialog.forEach((modal) => modal.remove());
       }
 
       preventDuplicatedIDs() {
         const sectionId = this.productElement.dataset.section;
-        this.productElement.innerHTML = this.productElement.innerHTML.replaceAll(sectionId, `quickadd-${sectionId}`);
-        this.productElement.querySelectorAll('variant-selects, variant-radios, product-info').forEach((element) => {
-          element.dataset.originalSection = sectionId;
-        });
+        this.productElement.innerHTML =
+          this.productElement.innerHTML.replaceAll(
+            sectionId,
+            `quickadd-${sectionId}`,
+          );
+        this.productElement
+          .querySelectorAll('variant-selects, variant-radios, product-info')
+          .forEach((element) => {
+            element.dataset.originalSection = sectionId;
+          });
       }
 
       removeGalleryListSemantic() {
-        const galleryList = this.modalContent.querySelector('[id^="Slider-Gallery"]');
+        const galleryList = this.modalContent.querySelector(
+          '[id^="Slider-Gallery"]',
+        );
         if (!galleryList) return;
 
         galleryList.setAttribute('role', 'presentation');
-        galleryList.querySelectorAll('[id^="Slide-"]').forEach((li) => li.setAttribute('role', 'presentation'));
+        galleryList
+          .querySelectorAll('[id^="Slide-"]')
+          .forEach((li) => li.setAttribute('role', 'presentation'));
       }
 
       updateImageSizes() {
@@ -117,8 +144,10 @@ if (!customElements.get('quick-add-modal')) {
           mediaImageSizes = mediaImageSizes.replace('715px', '495px');
         }
 
-        mediaImages.forEach((img) => img.setAttribute('sizes', mediaImageSizes));
+        mediaImages.forEach((img) =>
+          img.setAttribute('sizes', mediaImageSizes),
+        );
       }
-    }
+    },
   );
 }

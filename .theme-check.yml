@@ -1,0 +1,10 @@
+NestedSnippet:
+  enabled: false
+RemoteAsset:
+  enabled: false
+ImgLazyLoading:
+  enabled: false
+DeprecateLazysizes:
+  enabled: false
+AssetPreload:
+  enabled: false
