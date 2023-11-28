@@ -18,7 +18,7 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient isolate">
+<div class="gradient isolate">
   <div class="page-width section-{{ section.id }}-padding">
     {%- if section.settings.heading != blank -%}
       <h2 class="collage-wrapper-title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -38,7 +38,7 @@
           {%- assign placeholder_image_index = forloop.index0 | modulo: 4 | plus: 1 -%}
           {%- case block.type -%}
             {%- when 'image' -%}
-              <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}card-wrapper {{ section.settings.card_styles }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
+              <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}card-wrapper {{ section.settings.card_styles }} gradient{% endif %}">
                 <div
                   class="media media--transparent ratio"
                   {% if block.settings.image != blank %}
@@ -110,7 +110,7 @@
                 placeholder_image: placeholder_image
               %}
             {%- when 'video' -%}
-              <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}{{ section.settings.card_styles }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
+              <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}{{ section.settings.card_styles }} gradient{% endif %}">
                 <noscript>
                   <a
                     href="{{ block.settings.video_url }}"
@@ -194,7 +194,7 @@
                 </modal-opener>
                 <modal-dialog
                   id="PopupModal-{{ block.id }}"
-                  class="modal-video media-modal color-{{ settings.color_schemes | first }}"
+                  class="modal-video media-modal"
                 >
                   <div
                     class="modal-video__content"
@@ -327,13 +327,6 @@
       "default": "product-card-wrapper",
       "info": "t:sections.collage.settings.card_styles.info",
       "label": "t:sections.collage.settings.card_styles.label"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "info": "t:sections.all.colors.has_cards_info",
-      "default": "background-1"
     },
     {
       "type": "header",

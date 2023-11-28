@@ -25,7 +25,7 @@
 {%- assign items_in_cart = cart | line_items_for: product | sum: 'quantity' -%}
 {% # theme-check-enable %}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
+<div class="gradient">
   <quick-order-list
     class="page-width section-{{ section.id }}-padding"
     id="quick-order-list"
@@ -289,12 +289,6 @@
       "id": "show_sku",
       "default": false,
       "label": "t:sections.quick-order-list.settings.show_sku.label"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "background-1"
     },
     {
       "type": "header",
